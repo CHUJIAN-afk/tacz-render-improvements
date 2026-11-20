@@ -1,0 +1,34 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "GPL-3.0-only"
+
+[[mods]]
+modId = "tacz_render_improvements"
+version = "${version}"
+displayName = "Tacz渲染改进"
+description = '''Independent GPU-resident first-person models and instanced item-form guns with shader-pack support for TaCZ on Minecraft 1.21.1 NeoForge.'''
+displayTest = "IGNORE_ALL_VERSION"
+
+[[dependencies.tacz_render_improvements]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.238,21.2)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.tacz_render_improvements]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.tacz_render_improvements]]
+modId = "tacz"
+type = "required"
+versionRange = "[1.2.0,)"
+ordering = "AFTER"
+side = "CLIENT"
+
+[[mixins]]
+config = "tacz_render_improvements.mixins.json"

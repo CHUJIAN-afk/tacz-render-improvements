@@ -1,0 +1,10 @@
+.gradle/
+__pycache__/
+build/
+run/
+.idea/
+*.iml
+out/
+logs/
+libs/*.jar
+/performance/

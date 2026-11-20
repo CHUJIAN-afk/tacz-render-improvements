@@ -1,0 +1,52 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+version = mod_version
+group = 'first.tacz.render'
+base.archivesName = 'tacz-render-improvements'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = neo_version
+    mods { tacz_render_improvements { sourceSet(sourceSets.main) } }
+    runs {
+        client {
+            client()
+            gameDirectory = file('run/neoforge-1.21.1')
+            loadedMods = [mods.tacz_render_improvements]
+        }
+    }
+}
+
+repositories {
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
+    mavenCentral()
+}
+
+configurations { taczArtifact { transitive = false } }
+def extractTaczLibrary = tasks.register('extractTaczLibrary', Copy) {
+    from({ zipTree(configurations.taczArtifact.singleFile) })
+    include 'META-INF/jarjar/simplebedrockmodel-*.jar'
+    eachFile { path = name }
+    includeEmptyDirs = false
+    into layout.buildDirectory.dir('tacz-libraries')
+}
+
+dependencies {
+    implementation "maven.modrinth:timeless-and-classics-zero:${tacz_version}"
+    taczArtifact "maven.modrinth:timeless-and-classics-zero:${tacz_version}"
+    compileOnly files(layout.buildDirectory.file('tacz-libraries/simplebedrockmodel-2.6.2-neoforge-mc1.21.1.jar')).builtBy(extractTaczLibrary)
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(ProcessResources).configureEach {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand(version: project.version)
+    }
+}
+tasks.named('jar', Jar) {
+    from 'LICENSE'
+}

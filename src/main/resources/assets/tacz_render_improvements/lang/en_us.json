@@ -1,0 +1,5 @@
+{
+  "tacz_render_improvements.config.title": "TaCZ Render Improvements",
+  "tacz_render_improvements.config.optimizeItemGuns": "Item gun rendering and instancing",
+  "tacz_render_improvements.config.optimizeHeldGuns": "First-person gun rendering"
+}

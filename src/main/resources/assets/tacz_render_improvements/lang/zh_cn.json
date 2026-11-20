@@ -1,0 +1,5 @@
+{
+  "tacz_render_improvements.config.title": "Tacz渲染改进",
+  "tacz_render_improvements.config.optimizeItemGuns": "物品枪械渲染与实例化",
+  "tacz_render_improvements.config.optimizeHeldGuns": "第一人称枪械渲染优化"
+}
